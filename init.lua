@@ -7,6 +7,12 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Neovim decides whether a .tex file is plain TeX or LaTeX by scanning it, and
+-- calls anything without \documentclass, \usepackage or \begin{ "plaintex".
+-- A brand new .tex file has none of those, so without this it opens as
+-- plaintex and no LaTeX ftplugin or snippet ever runs.
+vim.g.tex_flavor = "latex"
+
 -- Keep the cursor near the middle of the window.
 vim.opt.scrolloff = math.floor(vim.o.lines / 2) - 3
 

@@ -14,14 +14,17 @@ needs on the first run.
 | `init.lua` | Leader keys, options, colourscheme, undotree, start screen |
 | `lua/plugins/init.lua` | Loader. Requires every `.lua` file under `lua/plugins/` |
 | `lua/plugins/ui/` | catppuccin, lualine, noice, which-key |
-| `lua/plugins/completion/` | LSP and blink.cmp, conform and nvim-lint, treesitter |
-| `lua/plugins/utils/` | telescope, mini.nvim, autosave, flash, scrollEOF |
+| `lua/plugins/completion/` | LSP and blink.cmp, LuaSnip, conform and nvim-lint, treesitter |
+| `lua/plugins/utils/` | telescope, mini.nvim, vimtex, autosave, flash, scrollEOF |
 | `lua/config/binds.lua` | Every keybind, with the exceptions noted below |
 | `lua/config/autocmd.lua` | Git remote check, cursorline focus, autosave messages |
 | `lua/keygroups.lua` | What each key prefix is called |
 | `lua/cheatsheet.lua` | The cheatsheet |
 | `lua/pokedash.lua` | Start screen |
 | `lsp/` | One file per language server |
+| `snippets/tex.lua` | LaTeX and maths snippets |
+| `lua/util/tex.lua` | Is the cursor in maths? |
+| `after/ftplugin/tex.lua` | LaTeX buffer settings and compile keys |
 | `art/charizard-shiny` | The sprite |
 
 Each file under `lua/plugins/` calls `vim.pack.add` itself and then configures
@@ -30,8 +33,8 @@ what it added. To add a plugin, add a file. The loader finds it.
 ## Language servers
 
 `lsp/<name>.lua` holds a server's settings. `lua/plugins/completion/lspconfig.lua`
-lists which of them start. Four are enabled: `lua_ls`, `clangd`, `pyright` and
-`ruff`.
+lists which of them start. Five are enabled: `lua_ls`, `clangd`, `pyright`,
+`ruff` and `ltex_plus`, which checks grammar in LaTeX and Markdown prose.
 
 Install the server binary yourself. Neovim does not.
 
@@ -39,6 +42,34 @@ Install the server binary yourself. Neovim does not.
 
 conform formats on save. stylua for Lua, clang-format for C and C++,
 ruff for Python, prettier for the rest.
+
+## LaTeX
+
+vimtex compiles with latexmk into `build/`, and views in Skim with forward and
+inverse search. Treesitter owns highlighting, so vimtex's own syntax engine is
+off.
+
+- `<leader>cc` - Compile, toggling continuous mode
+- `<leader>cv` - View the PDF in Skim
+- `<leader>ck` - Stop compiling
+- `<leader>ce` - Errors
+- `<leader>ct` - Table of contents
+- `<leader>cl` - Clean the build directory
+- `<leader>cs` - Compiler status
+
+vimtex's own `<localleader>l` set is untouched and remains the full set. The
+local leader is comma.
+
+`snippets/tex.lua` holds the maths snippets. Most expand the instant the
+trigger is typed, with no menu and no confirm key, which works because each
+one is gated on where the cursor is: `mk` opens maths and fires in text, `//`
+builds a fraction and fires in maths. `lua/util/tex.lua` answers that from the
+treesitter parse tree, so the same snippets work inside `$...$` in a Markdown
+note. `:SnipReload` reloads the file without restarting.
+
+No trigger may be a prefix of another one. Autosnippets fire on the keystroke
+that completes a trigger, so `;p` and `;ph` together would expand `;p` and
+leave the `h` after it.
 
 ## Keybinds
 

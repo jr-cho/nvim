@@ -44,8 +44,11 @@ local ESSENTIALS = {
 		{ "]d / [d", "Next / previous diagnostic" },
 	},
 	["editing"] = {
-		{ "af / if", "A function / its body" },
-		{ "ac / ic", "A class / its body" },
+		{ "af / if", "A function call / its arguments" },
+		{ "aa / ia", "An argument" },
+		{ "ab / ib", "A bracketed block" },
+		{ "aq / iq", "A quoted string" },
+		{ "at / it", "An HTML tag" },
 		{ "sa / sd / sr", "Add / delete / replace surround" },
 		{ "sf / sF", "Find the next / previous surround" },
 		{ "sh", "Highlight a surround" },
@@ -71,6 +74,18 @@ local ESSENTIALS = {
 		{ "<C-t>", "Open the result in a new tab" },
 		{ "<C-v>", "Open the result in a split" },
 		{ "d", "Delete buffer (buffers picker, normal)" },
+	},
+	-- Buffer-local, from after/ftplugin/tex.lua. nvim_get_keymap returns
+	-- global mappings only, so collect() cannot see these even in a .tex file.
+	["compile (tex)"] = {
+		{ "<leader>cc", "Compile (toggle continuous)" },
+		{ "<leader>cv", "View the PDF in Skim" },
+		{ "<leader>ck", "Stop compiling" },
+		{ "<leader>ce", "Errors" },
+		{ "<leader>ct", "Table of contents" },
+		{ "<leader>cl", "Clean the build directory" },
+		{ "<leader>cs", "Compiler status" },
+		{ ",l...", "vimtex's own command set" },
 	},
 	["tab"] = {
 		{ "<C-t>l / <C-t>h", "Next / previous tab" },

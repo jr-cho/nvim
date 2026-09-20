@@ -12,6 +12,7 @@ vim.lsp.enable({
 	"clangd",
 	"pyright",
 	"ruff",
+	"ltex_plus",
 })
 
 vim.o.winborder = "rounded"
@@ -29,6 +30,11 @@ require("blink.cmp").setup({
 	-- not have. The lua matcher is slower and needs nothing.
 	fuzzy = { implementation = "lua" },
 	appearance = { use_nvim_cmp_as_default = true },
+
+	-- The snippets source and the expander are LuaSnip's, set up in
+	-- luasnip.lua. Without this, blink would expand with vim.snippet and
+	-- never see a file in snippets/.
+	snippets = { preset = "luasnip" },
 
 	keymap = {
 		["<Tab>"] = { "select_next", "snippet_forward", "fallback" },

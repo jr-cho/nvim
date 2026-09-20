@@ -44,6 +44,10 @@
       "rev": "8838875e2e787293bb905d23dbb91ef4bde188ea",
       "src": "https://github.com/archibate/lualine-time"
     },
+    "luasnip": {
+      "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
+      "src": "https://github.com/L3MON4D3/LuaSnip"
+    },
     "mini": {
       "rev": "4389a4f31f854ce066949ea89c72dc71564f5c20",
       "src": "https://github.com/echasnovski/mini.nvim"
@@ -108,6 +112,10 @@
     "vimade": {
       "rev": "3d3d2db7ecd43c0181b20fede11d26f090dbc0d9",
       "src": "https://github.com/tadaa/vimade"
+    },
+    "vimtex": {
+      "rev": "42dcf1699e45725bd3b366ecab2ae06f6e0f8118",
+      "src": "https://github.com/lervag/vimtex"
     },
     "whichkey": {
       "rev": "3aab2147e74890957785941f0c1ad87d0a44c15a",
