@@ -4,24 +4,9 @@ vim.pack.add({
 	{ src = "https://github.com/nvim-treesitter/nvim-treesitter", version = "main", name = "treesitter" },
 })
 
-require("nvim-treesitter").install({
-	"bash",
-	"c",
-	"cpp",
-	"html",
-	"javascript",
-	"json",
-	"lua",
-	"markdown",
-	"markdown_inline",
-	"python",
-	"query",
-	"regex",
-	"tsx",
-	"typescript",
-	"vim",
-	"yaml",
-})
+-- Neovim itself ships parsers for lua, markdown, query, vim and vimdoc, so
+-- this list is the languages it does not cover.
+require("nvim-treesitter").install({ "c", "cpp", "python" })
 
 -- The main branch does not start highlighting on its own.
 vim.api.nvim_create_autocmd("FileType", {
