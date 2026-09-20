@@ -11,7 +11,7 @@ Keymap("n", "q:", ":") -- remove nonsense command
 Keymap("n", "<leader>bd", function() -- delete buffer
 	vim.cmd("bd")
 	vim.cmd("echo 'Buffer deleted'")
-end)
+end, { desc = "Delete buffer" })
 
 -- Entering insert on a blank line clears its whitespace first, so the cursor
 -- starts at the indent the file actually wants.
@@ -27,20 +27,20 @@ end
 
 Keymap("i", "<C-BS>", "<C-W>") -- C-Backspace for whole words
 
-Keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>")
-Keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>")
+Keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostic float" })
+Keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
 
 -- Terminal
 Keymap("n", "<leader>tj", function() -- open term in new pane
 	vim.cmd.vnew()
 	vim.cmd.term()
 	vim.cmd.startinsert()
-end)
+end, { desc = "Terminal in a split" })
 Keymap("n", "<leader>tk", function() -- open term in new tab
 	vim.cmd.tabnew()
 	vim.cmd.term()
 	vim.cmd.startinsert()
-end)
+end, { desc = "Terminal in a tab" })
 Keymap("t", "<C-D>", "<C-\\><C-n>") -- escape terminal with c-d
 
 -- Flash
@@ -53,34 +53,34 @@ Keymap("n", "ss", function()
 			backdrop = true,
 		},
 	})
-end)
+end, { desc = "Flash jump" })
 Keymap("n", "S", function()
 	require("flash").treesitter()
-end)
+end, { desc = "Flash treesitter" })
 Keymap("n", "<leader>r", function()
 	require("flash").remote()
-end)
+end, { desc = "Flash remote" })
 Keymap("n", "<leader>R", function()
 	require("flash").treesitter_search()
-end)
+end, { desc = "Flash treesitter search" })
 
 -- Sessions
 Keymap("n", "<leader>qj", function() -- quit and save session
 	require("mini.sessions").write(".session")
 	vim.cmd("wqa")
-end)
+end, { desc = "Write session, then quit" })
 
 Keymap("n", "<leader>qd", function() -- quit and delete session
 	require("mini.sessions").delete(".session")
 	vim.cmd("wqa")
-end)
+end, { desc = "Delete session, then quit" })
 
 -- Telescope
 local builtin = require("telescope.builtin")
 
 Keymap("n", "<leader>ff", function()
 	builtin.find_files({ hidden = true })
-end)
+end, { desc = "Find files" })
 
 Keymap("n", "<leader>fn", function()
 	local full_path = vim.api.nvim_buf_get_name(0)
@@ -88,37 +88,37 @@ Keymap("n", "<leader>fn", function()
 	require("telescope").extensions.file_browser.file_browser({
 		path = dir,
 	})
-end)
+end, { desc = "File browser" })
 
 Keymap("n", "<leader>fs", function() -- select sessions
 	MiniSessions.select()
-end)
+end, { desc = "Pick a session" })
 
 Keymap("n", "<leader>fd", function() -- delete sessions
 	MiniSessions.select("delete")
-end)
+end, { desc = "Delete a session" })
 
 Keymap("n", "<leader>fg", function()
 	builtin.live_grep({ hidden = true })
-end)
+end, { desc = "Live grep" })
 
 Keymap("n", "<leader>fb", function()
 	builtin.buffers({ show_all_buffers = true })
-end)
+end, { desc = "Open buffers" })
 
 -- Tabs
 Keymap("n", "<C-T>l", function()
 	vim.cmd("tabnext")
-end)
+end, { desc = "Next tab" })
 
 Keymap("n", "<C-T>h", function()
 	vim.cmd("tabprevious")
-end)
+end, { desc = "Previous tab" })
 
 Keymap("n", "<C-T>j", function()
 	vim.cmd("tabnew")
-end)
+end, { desc = "New tab" })
 
 Keymap("n", "<C-T>q", function()
 	vim.cmd("tabclose")
-end)
+end, { desc = "Close tab" })

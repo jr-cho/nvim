@@ -52,7 +52,7 @@ vim.o.autoindent = true
 -- Undotree
 vim.pack.add({ { src = "https://github.com/jiaoshijie/undotree", name = "undotree" } })
 require("undotree").setup()
-vim.keymap.set("n", "<leader>u", require("undotree").toggle)
+vim.keymap.set("n", "<leader>u", require("undotree").toggle, { desc = "Toggle undotree" })
 
 -- Local project config
 vim.o.exrc = true
@@ -64,5 +64,6 @@ vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#cba6f7", bold = true })
 vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#1e1e2e", bg = "#f38ba8", bold = false })
 vim.api.nvim_set_hl(0, "FlashCurrent", { bg = "#cba6f7", fg = "#1e1e2e", bold = true })
 
--- Start screen.
+-- Start screen and keybinding cheatsheet.
 require("pokedash").setup()
+require("cheatsheet").setup()

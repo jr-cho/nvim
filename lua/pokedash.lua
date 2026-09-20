@@ -111,6 +111,7 @@ M.buttons = {
 		label = "File browser",
 		cmd = 'lua require("telescope").extensions.file_browser.file_browser()',
 	},
+	{ key = "c", icon = "", label = "Cheatsheet", cmd = "Cheatsheet" },
 	{ key = "q", icon = "", label = "Quit", cmd = "qa" },
 }
 

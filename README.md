@@ -13,11 +13,13 @@ needs on the first run.
 | --- | --- |
 | `init.lua` | Leader keys, options, colourscheme, undotree, start screen |
 | `lua/plugins/init.lua` | Loader. Requires every `.lua` file under `lua/plugins/` |
-| `lua/plugins/ui/` | catppuccin, lualine, noice |
+| `lua/plugins/ui/` | catppuccin, lualine, noice, which-key |
 | `lua/plugins/completion/` | LSP and blink.cmp, conform and nvim-lint, treesitter |
 | `lua/plugins/utils/` | telescope, mini.nvim, autosave, flash, scrollEOF |
 | `lua/config/binds.lua` | Every keybind, with the exceptions noted below |
 | `lua/config/autocmd.lua` | Git remote check, cursorline focus, autosave messages |
+| `lua/keygroups.lua` | What each key prefix is called |
+| `lua/cheatsheet.lua` | The cheatsheet |
 | `lua/pokedash.lua` | Start screen |
 | `lsp/` | One file per language server |
 | `art/charizard-shiny` | The sprite |
@@ -42,6 +44,13 @@ ruff for Python, prettier for the rest.
 
 The leader key is space. The local leader is comma. All default Vim bindings
 are untouched.
+
+Pause for 250ms on a prefix and which-key shows what follows it. Press
+`<leader>?`, or `c` on the start screen, for the cheatsheet: every mapping
+that carries a description, in one screen. `q` or `<Esc>` closes it.
+
+which-key and the cheatsheet name their prefixes from the same list, in
+`lua/keygroups.lua`. A new group is added there once.
 
 ### Files
 
@@ -91,6 +100,6 @@ automatically when you open Neovim in that directory.
 ## Start screen
 
 `nvim` with no file argument opens the start screen: the Charizard sprite and
-five buttons, each on its key. The sprite is 24-bit ANSI art. `pokedash.lua`
+six buttons, each on its key. The sprite is 24-bit ANSI art. `pokedash.lua`
 parses the escape codes and paints one highlight group per colour pair, which
 is why the start screen is a module here and not a plugin.
