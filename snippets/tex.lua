@@ -220,14 +220,17 @@ M[#M + 1] = s("lbl", fmta([[\label{<>}]], { i(1) }), in_tex_text)
 -- ---------------------------------------------------------------------------
 -- Fractions, powers and roots
 -- ---------------------------------------------------------------------------
-M[#M + 1] = auto("//", fmta([[\frac{<>}{<>}]], { i(1), i(2) }), in_math)
+-- wordTrig is off on both of these. It defaults to on, which blocks a trigger
+-- that follows a letter or a digit, and both are typed exactly there: x// for
+-- a fraction and x__ for a subscript.
+M[#M + 1] = auto({ trig = "//", wordTrig = false }, fmta([[\frac{<>}{<>}]], { i(1), i(2) }), in_math)
 M[#M + 1] = auto("sq", fmta([[\sqrt{<>}]], { i(1) }), in_math)
 M[#M + 1] = auto("nrt", fmta([[\sqrt[<>]{<>}]], { i(1), i(2) }), in_math)
 
 M[#M + 1] = lit("sr", "^2", false, in_math)
 M[#M + 1] = lit("cb", "^3", false, in_math)
 M[#M + 1] = auto("td", fmta([[^{<>}]], { i(1) }), in_math)
-M[#M + 1] = auto("__", fmta([[_{<>}]], { i(1) }), in_math)
+M[#M + 1] = auto({ trig = "__", wordTrig = false }, fmta([[_{<>}]], { i(1) }), in_math)
 M[#M + 1] = auto("ee", fmta([[e^{<>}]], { i(1) }), in_math)
 
 -- x1 becomes x_1. The subscript is the most typed piece of notation there is
