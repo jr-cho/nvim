@@ -1,11 +1,11 @@
 -- Start screen with a full-colour sprite.
 --
--- NVChad's nvdash draws its header as one virt_text chunk per line with a
--- single highlight group, so it cannot show more than one colour. The sprites
--- in art/ are 24-bit ANSI, where each cell is a half-block glyph carrying a
--- foreground colour for the top pixel and a background colour for the bottom.
--- Rendering that needs one highlight group per distinct colour pair, so this
--- module replaces nvdash rather than configuring it.
+-- art/charizard-shiny is 24-bit ANSI, where each cell is a half-block glyph
+-- carrying a foreground colour for the top pixel and a background colour for
+-- the bottom. Drawing that needs one highlight group per distinct colour pair,
+-- which is why this is a module and not a start screen plugin: those render a
+-- header as one virt_text chunk per line under a single highlight group, so
+-- they cannot show more than one colour.
 
 local M = {}
 
@@ -14,10 +14,9 @@ local hl_cache = {}
 
 -- Button colours, linked to groups the colourscheme owns so they follow it.
 --
--- These used to link to base46's NvDashButtons, which went with NvChad.
--- Directory is onedark's blue and reads as an actionable label. The key hint
--- links to NonText, which is dimmer than Comment: a hint should recede, and
--- Comment is the same grey as the label it sits beside.
+-- Directory is catppuccin's blue and reads as an actionable label. The key
+-- hint links to NonText, which is dimmer than Comment: a hint should recede,
+-- and Comment is the same grey as the label it sits beside.
 --
 -- Defined on every call rather than once at require time, so the buttons
 -- follow a colourscheme change.
@@ -81,72 +80,37 @@ local function parse_line(line)
 	return table.concat(text), spans
 end
 
--- How often each sprite turns up, as a weight against the others. A file in
--- art/ that is not named here gets a weight of 1.
---
--- Charizard is the one you actually want to see, so he carries twelve against
--- six others at one apiece: two openings in three are his, and the remaining
--- third is split between the rest at one in eighteen each. A rare sprite that
--- shows up half the time is not rare.
---
--- Sprites are pokemon-colorscripts art. They are kept at roughly charizard's
--- 21x44, which means mixing the project's small and large tiers: it renders
--- creatures at true relative scale, so ditto's small sprite is 8x16 and ho-oh's
--- large one is 50x92.
-local WEIGHTS = {
-	["charizard-shiny"] = 12,
-	["charmander"] = 1,
-	["ditto"] = 1,
-	["dragonite"] = 1,
-	["dratini"] = 1,
-	["groudon"] = 1,
-	["ho-oh"] = 1,
-}
-
--- Pick a sprite from art/. Returns nil when the directory is empty, which
--- leaves the dashboard as buttons only rather than erroring.
-local function pick_sprite()
-	local dir = vim.fn.stdpath("config") .. "/art"
-	local files = vim.fn.globpath(dir, "*", false, true)
-	if #files == 0 then
-		return nil
+-- The one sprite. art/ holds charizard-shiny and nothing else, so there is no
+-- pool to draw from and no weighting to do.
+local function sprite_path()
+	local path = vim.fn.stdpath("config") .. "/art/charizard-shiny"
+	if vim.fn.filereadable(path) == 1 then
+		return path
 	end
-
-	-- Seeded from the monotonic clock, not os.time(). os.time() has one-second
-	-- resolution, so quitting and reopening within the same second dealt the
-	-- same sprite twice.
-	math.randomseed(vim.uv.hrtime() % 2147483647)
-
-	local total = 0
-	local weights = {}
-	for i, path in ipairs(files) do
-		local name = vim.fn.fnamemodify(path, ":t")
-		weights[i] = WEIGHTS[name] or 1
-		total = total + weights[i]
-	end
-
-	local roll = math.random(total)
-	for i, w in ipairs(weights) do
-		roll = roll - w
-		if roll <= 0 then
-			return files[i]
-		end
-	end
-	return files[#files]
+	return nil
 end
 
--- The commands are snacks' now. telescope, nvim-tree and NvChad's theme
--- picker are all gone, so the old Telescope and NvimTreeToggle commands would
--- have failed silently on a keypress.
---
--- The Themes button is dropped rather than rebound. It opened NvChad's picker,
--- and this config has one colourscheme by choice.
+-- Telescope, since that is what this config uses for finding things.
 M.buttons = {
-	{ key = "f", icon = "", label = "Find file", cmd = "lua Snacks.picker.files()" },
-	{ key = "o", icon = "", label = "Recent files", cmd = "lua Snacks.picker.recent()" },
-	{ key = "w", icon = "", label = "Find word", cmd = "lua Snacks.picker.grep()" },
-	{ key = "e", icon = "", label = "File tree", cmd = "lua Snacks.explorer()" },
-	{ key = "c", icon = "", label = "Cheatsheet", cmd = "Cheatsheet" },
+	{
+		key = "f",
+		icon = "",
+		label = "Find file",
+		cmd = 'lua require("telescope.builtin").find_files({ hidden = true })',
+	},
+	{ key = "o", icon = "", label = "Recent files", cmd = 'lua require("telescope.builtin").oldfiles()' },
+	{
+		key = "w",
+		icon = "",
+		label = "Find word",
+		cmd = 'lua require("telescope.builtin").live_grep({ hidden = true })',
+	},
+	{
+		key = "e",
+		icon = "",
+		label = "File browser",
+		cmd = 'lua require("telescope").extensions.file_browser.file_browser()',
+	},
 	{ key = "q", icon = "", label = "Quit", cmd = "qa" },
 }
 
@@ -165,10 +129,7 @@ local function button_text(b)
 	return b.icon .. " " .. b.label .. string.rep(" ", math.max(1, filler)) .. b.key
 end
 
--- opts.sprite renders that file instead of drawing from the weighted pool.
--- Without it, a test wanting to check one sprite had to rename the others out
--- of the way. That mutated tracked files in the config directory and left them
--- renamed whenever an assertion failed before the cleanup ran.
+-- opts.sprite renders that file instead of art/charizard-shiny.
 function M.open(opts)
 	opts = opts or {}
 	define_button_hl()
@@ -177,7 +138,7 @@ function M.open(opts)
 	local win = vim.api.nvim_get_current_win()
 
 	local sprite_lines, sprite_spans = {}, {}
-	local path = opts.sprite or pick_sprite()
+	local path = opts.sprite or sprite_path()
 	if path then
 		local f = io.open(path, "rb")
 		if f then

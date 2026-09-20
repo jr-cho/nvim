@@ -13,9 +13,10 @@ return {
 					"${3rd}/luv/library",
 				},
 			},
-			-- Snacks and MiniIcons are set by their plugins at runtime, so the
-			-- server would otherwise report every use of them as undefined.
-			diagnostics = { globals = { "vim", "Snacks", "MiniIcons" } },
+			-- MiniSessions and MiniIcons are set by mini.nvim at runtime, and
+			-- Keymap is defined in lua/config/binds.lua, so the server would
+			-- otherwise report every use of them as undefined.
+			diagnostics = { globals = { "vim", "MiniSessions", "MiniIcons", "Keymap" } },
 			telemetry = { enable = false },
 			-- stylua does this, through conform in Task 7.
 			format = { enable = false },
