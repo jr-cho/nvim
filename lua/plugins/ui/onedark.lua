@@ -20,7 +20,7 @@ vim.pack.add({
 
 require("onedark").setup({
 	style = "dark",
-	transparent = false,
+	transparent = true,
 	term_colors = true,
 
 	code_style = {
