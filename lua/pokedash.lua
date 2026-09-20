@@ -51,7 +51,15 @@ local function parse_line(line)
 		else
 			a, b, c, ni = line:match("^\27%[48;2;(%d+);(%d+);(%d+)m()", i)
 			if a then
-				bg = string.format("#%02x%02x%02x", a, b, c)
+				-- Pure black is the art's empty background, not part of the
+				-- drawing. Dropping it lets the terminal show through, which
+				-- is the point of a transparent colourscheme. The black
+				-- FOREGROUND cells are kept: those are the outline.
+				if a == "0" and b == "0" and c == "0" then
+					bg = nil
+				else
+					bg = string.format("#%02x%02x%02x", a, b, c)
+				end
 				i = ni
 			else
 				local reset = select(2, line:find("^\27%[0?m", i))
@@ -62,6 +70,14 @@ local function parse_line(line)
 					local b1 = line:byte(i)
 					local len = b1 >= 240 and 4 or b1 >= 224 and 3 or b1 >= 192 and 2 or 1
 					local ch = line:sub(i, i + len - 1)
+
+					-- A half-block with no colour left on it would draw in the
+					-- window's own foreground, which is a light grey block
+					-- where the art meant nothing at all. Write a space.
+					if not fg and not bg then
+						ch, len = " ", 1
+					end
+
 					text[#text + 1] = ch
 					if fg or bg then
 						local last = spans[#spans]
