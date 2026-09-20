@@ -7,7 +7,13 @@ vim.pack.add({
 	{ src = "https://github.com/2kabhishek/nerdy.nvim", name = "telescope-nerdy" },
 })
 
-vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#89b4fa" })
+-- On ColorScheme as well as now, so a repaint does not take it back to the
+-- colourscheme's own border colour.
+local function border_hl()
+	vim.api.nvim_set_hl(0, "TelescopeBorder", { fg = "#61afef" }) -- onedark blue
+end
+border_hl()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = border_hl })
 
 local actions = require("telescope.actions")
 

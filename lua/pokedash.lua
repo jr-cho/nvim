@@ -14,7 +14,7 @@ local hl_cache = {}
 
 -- Button colours, linked to groups the colourscheme owns so they follow it.
 --
--- Directory is catppuccin's blue and reads as an actionable label. The key
+-- Directory is onedark's blue and reads as an actionable label. The key
 -- hint links to NonText, which is dimmer than Comment: a hint should recede,
 -- and Comment is the same grey as the label it sits beside.
 --

@@ -15,7 +15,14 @@ vim.lsp.enable({
 })
 
 vim.o.winborder = "rounded"
-vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#89b4fa" })
+
+-- On ColorScheme as well as now. The colourscheme module loads after this one
+-- and repaints every group, which put the border back to its default.
+local function border_hl()
+	vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#61afef" }) -- onedark blue
+end
+border_hl()
+vim.api.nvim_create_autocmd("ColorScheme", { callback = border_hl })
 
 require("blink.cmp").setup({
 	-- The rust matcher needs cargo at install time, which this machine does

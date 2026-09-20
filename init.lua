@@ -14,15 +14,11 @@ require("plugins.init")
 require("config.autocmd")
 require("config.binds")
 
--- Colourscheme
-vim.cmd.colorscheme("catppuccin-mocha")
-
--- Line numbers
+-- Line numbers. Their colours belong to the colourscheme, which sets them in
+-- lua/plugins/ui/onedark.lua.
 vim.opt.cursorline = true
 vim.wo.relativenumber = true
 vim.wo.number = true
-vim.api.nvim_set_hl(0, "LineNr", { fg = "#6c7086" }) -- overlay0
-vim.api.nvim_set_hl(0, "CursorLineNr", { fg = "#cba6f7", bold = true }) -- mauve
 
 -- Windows
 vim.opt.splitbelow = true
@@ -60,9 +56,10 @@ vim.o.exrc = true
 -- Case handling and flash colours
 vim.o.ignorecase = true
 vim.o.smartcase = true
-vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#cba6f7", bold = true })
-vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#1e1e2e", bg = "#f38ba8", bold = false })
-vim.api.nvim_set_hl(0, "FlashCurrent", { bg = "#cba6f7", fg = "#1e1e2e", bold = true })
+-- onedark's purple, red and bg0.
+vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#c678dd", bold = true })
+vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#282c34", bg = "#e06c75", bold = false })
+vim.api.nvim_set_hl(0, "FlashCurrent", { bg = "#c678dd", fg = "#282c34", bold = true })
 
 -- Start screen and keybinding cheatsheet.
 require("pokedash").setup()
