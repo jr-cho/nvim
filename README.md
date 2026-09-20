@@ -40,8 +40,12 @@ Install the server binary yourself. Neovim does not.
 
 ## Formatting
 
-conform formats on save. stylua for Lua, clang-format for C and C++,
-ruff for Python, prettier for the rest.
+conform formats on save. stylua for Lua, clang-format for C and C++, ruff for
+Python, tex-fmt for LaTeX.
+
+tex-fmt takes its indent from the buffer, and `after/ftplugin/tex.lua` sets a
+LaTeX buffer to two spaces. The global default is a hard tab, so without that
+ftplugin every save would rewrite the indentation of every line touched.
 
 ## LaTeX
 
