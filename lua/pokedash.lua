@@ -154,6 +154,14 @@ function M.open(opts)
 	local buf = vim.api.nvim_create_buf(false, true)
 	local win = vim.api.nvim_get_current_win()
 
+	-- mini.trailspace paints trailing whitespace red, and the sprite's empty
+	-- cells are spaces. The rest are off for the same reason: none of them
+	-- have anything to say about a start screen.
+	vim.b[buf].minitrailspace_disable = true
+	vim.b[buf].minicursorword_disable = true
+	vim.b[buf].miniindentscope_disable = true
+	vim.b[buf].minianimate_disable = true
+
 	local sprite_lines, sprite_spans = {}, {}
 	local path = opts.sprite or sprite_path()
 	if path then

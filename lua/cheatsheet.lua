@@ -222,6 +222,14 @@ function M.open()
 	end
 
 	local buf = vim.api.nvim_create_buf(false, true)
+
+	-- mini.trailspace paints trailing whitespace red, and the sprite's empty
+	-- cells are spaces. The rest are off for the same reason: none of them
+	-- have anything to say about a start screen.
+	vim.b[buf].minitrailspace_disable = true
+	vim.b[buf].minicursorword_disable = true
+	vim.b[buf].miniindentscope_disable = true
+	vim.b[buf].minianimate_disable = true
 	vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
 	vim.bo[buf].modifiable = false
 	vim.bo[buf].buftype = "nofile"
