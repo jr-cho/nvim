@@ -7,6 +7,7 @@
 -- which-key finds the keys under a prefix on its own. Only the name of the
 -- prefix has to be declared, because that is not inferable from the keys.
 return {
+	{ "<leader>a", group = "claude" },
 	{ "<leader>b", group = "buffer" },
 	{ "<leader>c", group = "compile (tex)" },
 	{ "<leader>f", group = "find" },

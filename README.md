@@ -15,7 +15,7 @@ needs on the first run.
 | `lua/plugins/init.lua` | Loader. Requires every `.lua` file under `lua/plugins/` |
 | `lua/plugins/ui/` | catppuccin, lualine, noice, which-key |
 | `lua/plugins/completion/` | LSP and blink.cmp, LuaSnip, conform and nvim-lint, treesitter |
-| `lua/plugins/utils/` | telescope, mini.nvim, vimtex, autosave, flash, scrollEOF |
+| `lua/plugins/utils/` | telescope, mini.nvim, vimtex, claudecode, autosave, flash, scrollEOF |
 | `lua/config/binds.lua` | Every keybind, with the exceptions noted below |
 | `lua/config/autocmd.lua` | Git remote check, cursorline focus, autosave messages |
 | `lua/keygroups.lua` | What each key prefix is called |
@@ -74,6 +74,30 @@ note. `:SnipReload` reloads the file without restarting.
 No trigger may be a prefix of another one. Autosnippets fire on the keystroke
 that completes a trigger, so `;p` and `;ph` together would expand `;p` and
 leave the `h` after it.
+
+## Claude Code
+
+claudecode.nvim opens a WebSocket server and writes a lock file under
+`~/.claude/ide/`. The `claude` CLI finds that file and connects, which is the
+same protocol the VS Code extension speaks. Claude then sees the current
+selection, opens files here, and shows its edits as diffs to accept or deny.
+
+The server starts with Neovim, so a `claude` started in any terminal finds
+this editor. `auto_start = false` in `lua/plugins/utils/claudecode.lua` turns
+that off, and `:ClaudeCodeStart` then starts it by hand.
+
+- `<leader>ac` - Toggle Claude
+- `<leader>af` - Focus Claude
+- `<leader>ar` - Resume a session
+- `<leader>aC` - Continue the last session
+- `<leader>am` - Select the model
+- `<leader>ab` - Add this buffer
+- `<leader>as` - Send the selection, in visual mode
+- `<leader>aa` / `<leader>ad` - Accept or deny a proposed diff
+- `<A-a>` - Hide Claude from inside its terminal
+
+The Claude window is Neovim's own terminal in a split on the right. The
+previous config used a snacks terminal, and snacks is not in this one.
 
 ## Keybinds
 
