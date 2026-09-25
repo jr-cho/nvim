@@ -1,5 +1,9 @@
 # nvim
 
+```bash
+git clone https://github.com/jr-cho/nvim.git ~/.config/nvim
+```
+
 A Neovim config built on [voidarc/nvim](https://git.voidarc.co.uk/voidarc/nvim),
 with a start screen that draws a shiny Charizard.
 
