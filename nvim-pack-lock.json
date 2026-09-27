@@ -52,6 +52,10 @@
       "rev": "0abc8f390b278c3b4aabc4c004ac8a088b65cf24",
       "src": "https://github.com/L3MON4D3/LuaSnip"
     },
+    "markdown-preview": {
+      "rev": "a923f5fc5ba36a3b17e289dc35dc17f66d0548ee",
+      "src": "https://github.com/iamcco/markdown-preview.nvim"
+    },
     "mini": {
       "rev": "4389a4f31f854ce066949ea89c72dc71564f5c20",
       "src": "https://github.com/echasnovski/mini.nvim"
@@ -79,6 +83,10 @@
     "remember": {
       "rev": "e73350b07afdd4242a57e2e7c2b7cd38fce31d59",
       "src": "https://github.com/vladdoster/remember.nvim"
+    },
+    "render-markdown": {
+      "rev": "640a3ec6d538bad17c328be373c7cad0293d9589",
+      "src": "https://github.com/MeanderingProgrammer/render-markdown.nvim"
     },
     "scrolleof": {
       "rev": "e462b9a07b8166c3e8011f1dcbc6bf68b67cd8d7",

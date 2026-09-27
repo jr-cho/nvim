@@ -9,7 +9,7 @@
 return {
 	{ "<leader>a", group = "claude" },
 	{ "<leader>b", group = "buffer" },
-	{ "<leader>c", group = "compile (tex)" },
+	{ "<leader>c", group = "compile / preview" },
 	{ "<leader>f", group = "find" },
 	{ "<leader>q", group = "quit / session" },
 	{ "<leader>t", group = "terminal" },
