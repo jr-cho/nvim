@@ -79,3 +79,25 @@ vim.api.nvim_create_autocmd("InsertEnter", {
 		vim.cmd("normal! zz")
 	end,
 })
+
+-- Reload a buffer the moment something outside Neovim changes it on disk,
+-- e.g. Claude Code writing edits in auto mode. autoread only takes effect
+-- when something asks Vim to check, so force that check on every event where
+-- a stale buffer would otherwise bite: switching back to Neovim, moving
+-- between buffers, or just sitting idle for a second.
+vim.o.autoread = true
+vim.o.updatetime = 1000
+
+vim.api.nvim_create_autocmd({ "FocusGained", "BufEnter", "CursorHold", "CursorHoldI" }, {
+	callback = function()
+		if vim.fn.mode() ~= "c" then
+			vim.cmd("checktime")
+		end
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileChangedShellPost", {
+	callback = function()
+		vim.notify("Buffer reloaded, changed on disk.", vim.log.levels.WARN)
+	end,
+})

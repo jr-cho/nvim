@@ -1,41 +1,32 @@
 vim.pack.add({
 	{ src = "https://github.com/nvim-lualine/lualine.nvim", name = "lualine" },
 	{ src = "https://github.com/nvim-tree/nvim-web-devicons", name = "devicons" },
-	{ src = "https://github.com/archibate/lualine-time", name = "lualine-time" },
 })
+
+-- Dune statusline (savar95x dotfiles): gruvbox-material theme, no
+-- separators, every section on the terminal background except the mode
+-- block (a) and the location block (z), which keep the tan fill.
+local bg = require("dune").BG
+local theme = vim.deepcopy(require("lualine.themes.gruvbox-material"))
+for _, mode in pairs(theme) do
+	for _, section in ipairs({ "b", "c", "x", "y" }) do
+		if mode[section] then
+			mode[section].bg = bg
+		end
+	end
+end
 
 require("lualine").setup({
 	options = {
 		icons_enabled = true,
-		theme = "auto",
-		component_separators = { left = "", right = "" },
-		section_separators = { left = "", right = "" },
+		theme = theme,
+		component_separators = "",
+		section_separators = "",
 		disabled_filetypes = {
 			statusline = { "pokedash" },
-			winbar = {},
 		},
-		ignore_focus = {},
 		always_divide_middle = true,
-		always_show_tabline = true,
-		globalstatus = false,
-		refresh = {
-			statusline = 1000,
-			tabline = 1000,
-			winbar = 1000,
-			refresh_time = 16, -- ~60fps
-			events = {
-				"WinEnter",
-				"BufEnter",
-				"BufWritePost",
-				"SessionLoadPost",
-				"FileChangedShellPost",
-				"VimResized",
-				"Filetype",
-				"CursorMoved",
-				"CursorMovedI",
-				"ModeChanged",
-			},
-		},
+		globalstatus = true,
 	},
 	sections = {
 		lualine_a = {
@@ -52,20 +43,16 @@ require("lualine").setup({
 		},
 		lualine_b = { "branch", "diff", "diagnostics" },
 		lualine_c = { "filename" },
-		lualine_x = { "filetype" },
-		lualine_y = { "lsp_status" },
-		lualine_z = { "ctime" },
+		lualine_x = { "lsp_status", "encoding", "filetype" },
+		lualine_y = { "progress" },
+		lualine_z = { "location" },
 	},
 	inactive_sections = {
 		lualine_a = {},
-		lualine_b = { "branch", "diff", "diagnostics" },
+		lualine_b = {},
 		lualine_c = { "filename" },
 		lualine_x = { "location" },
 		lualine_y = {},
 		lualine_z = {},
 	},
-	tabline = {},
-	winbar = {},
-	inactive_winbar = {},
-	extensions = {},
 })

@@ -22,7 +22,7 @@ vim.g.vimtex_compiler_method = "latexmk"
 vim.g.vimtex_compiler_latexmk = {
 	aux_dir = "build",
 	out_dir = "build",
-	continuous = 1,
+	continuous = 0,
 	options = {
 		"-shell-escape",
 		"-verbose",

@@ -1,9 +1,5 @@
 # nvim
 
-```bash
-git clone https://github.com/jr-cho/nvim.git ~/.config/nvim
-```
-
 A Neovim config built on [voidarc/nvim](https://git.voidarc.co.uk/voidarc/nvim),
 with a start screen that draws a shiny Charizard.
 
@@ -15,13 +11,14 @@ needs on the first run.
 
 | Path | Holds |
 | --- | --- |
-| `init.lua` | Leader keys, options, colourscheme, undotree, start screen |
+| `init.lua` | Leader keys, options, undotree, start screen |
 | `lua/plugins/init.lua` | Loader. Requires every `.lua` file under `lua/plugins/` |
-| `lua/plugins/ui/` | catppuccin, lualine, noice, which-key |
+| `lua/plugins/ui/` | gruvbox-material (dune), lualine, noice, which-key |
 | `lua/plugins/completion/` | LSP and blink.cmp, LuaSnip, conform and nvim-lint, treesitter |
 | `lua/plugins/utils/` | telescope, mini.nvim, vimtex, claudecode, autosave, flash, scrollEOF |
 | `lua/config/binds.lua` | Every keybind, with the exceptions noted below |
 | `lua/config/autocmd.lua` | Git remote check, cursorline focus, autosave messages |
+| `lua/dune.lua` | Dune palette, read from `~/.config/dune/palette.env` |
 | `lua/keygroups.lua` | What each key prefix is called |
 | `lua/cheatsheet.lua` | The cheatsheet |
 | `lua/pokedash.lua` | Start screen |
@@ -120,7 +117,7 @@ which-key and the cheatsheet name their prefixes from the same list, in
 - `<leader>ff` - Find files
 - `<leader>fg` - Live grep
 - `<leader>fb` - Open buffers
-- `<leader>fn` - File browser, rooted at the current file's directory
+- `<leader>e` - File explorer, a tree in a left sidebar (`<C-l>` adds the entry to Claude)
 - `<leader>bd` - Delete the current buffer
 
 Telescope jumps to the window already showing a file rather than opening a

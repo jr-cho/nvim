@@ -20,7 +20,7 @@ vim.o.winborder = "rounded"
 -- On ColorScheme as well as now. The colourscheme module loads after this one
 -- and repaints every group, which put the border back to its default.
 local function border_hl()
-	vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = "#61afef" }) -- onedark blue
+	vim.api.nvim_set_hl(0, "BlinkCmpMenuBorder", { fg = require("dune").GREY }) -- dune tan
 end
 border_hl()
 vim.api.nvim_create_autocmd("ColorScheme", { callback = border_hl })

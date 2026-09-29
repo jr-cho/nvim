@@ -14,7 +14,7 @@ local hl_cache = {}
 
 -- Button colours, linked to groups the colourscheme owns so they follow it.
 --
--- Directory is onedark's blue and reads as an actionable label. The key
+-- Directory is the colourscheme's label colour and reads as actionable. The key
 -- hint links to NonText, which is dimmer than Comment: a hint should recede,
 -- and Comment is the same grey as the label it sits beside.
 --
@@ -124,8 +124,8 @@ M.buttons = {
 	{
 		key = "e",
 		icon = "",
-		label = "File browser",
-		cmd = 'lua require("telescope").extensions.file_browser.file_browser()',
+		label = "File explorer",
+		cmd = "lua Snacks.explorer()",
 	},
 	{ key = "c", icon = "", label = "Cheatsheet", cmd = "Cheatsheet" },
 	{ key = "q", icon = "", label = "Quit", cmd = "qa" },

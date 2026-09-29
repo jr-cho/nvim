@@ -20,8 +20,8 @@ require("plugins.init")
 require("config.autocmd")
 require("config.binds")
 
--- Line numbers. Their colours belong to the colourscheme, which sets them in
--- lua/plugins/ui/onedark.lua.
+-- Line numbers. Their colours belong to the colourscheme,
+-- lua/plugins/ui/gruvbox.lua.
 vim.opt.cursorline = true
 vim.wo.relativenumber = true
 vim.wo.number = true
@@ -51,6 +51,17 @@ vim.opt.termguicolors = true
 vim.opt.wrap = false
 vim.o.autoindent = true
 
+-- Mouse off, except in terminal buffers (Claude Code) so the wheel scrolls.
+vim.opt.mouse = ""
+vim.api.nvim_create_autocmd({ "BufEnter", "TermOpen" }, {
+	callback = function()
+		vim.opt.mouse = vim.bo.buftype == "terminal" and "a" or ""
+	end,
+})
+
+-- One global statusline, not one per split.
+vim.opt.laststatus = 3
+
 -- Undotree
 vim.pack.add({ { src = "https://github.com/jiaoshijie/undotree", name = "undotree" } })
 require("undotree").setup()
@@ -62,10 +73,11 @@ vim.o.exrc = true
 -- Case handling and flash colours
 vim.o.ignorecase = true
 vim.o.smartcase = true
--- onedark's purple, red and bg0.
-vim.api.nvim_set_hl(0, "FlashMatch", { fg = "#c678dd", bold = true })
-vim.api.nvim_set_hl(0, "FlashLabel", { fg = "#282c34", bg = "#e06c75", bold = false })
-vim.api.nvim_set_hl(0, "FlashCurrent", { bg = "#c678dd", fg = "#282c34", bold = true })
+-- Dune palette: magenta, red and background (lua/dune.lua).
+local dune = require("dune")
+vim.api.nvim_set_hl(0, "FlashMatch", { fg = dune.C5, bold = true })
+vim.api.nvim_set_hl(0, "FlashLabel", { fg = dune.BG, bg = dune.C1, bold = false })
+vim.api.nvim_set_hl(0, "FlashCurrent", { bg = dune.C5, fg = dune.BG, bold = true })
 
 -- Start screen and keybinding cheatsheet.
 require("pokedash").setup()

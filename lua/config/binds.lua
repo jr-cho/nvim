@@ -26,6 +26,11 @@ for _, bind in ipairs({ "i", "a", "A", "I" }) do
 end
 
 Keymap("i", "<C-BS>", "<C-W>") -- C-Backspace for whole words
+Keymap("i", "jk", "<Esc>") -- jk to normal mode
+
+Keymap("n", "<leader>w", function() -- toggle line wrap
+	vim.opt.wrap = not vim.o.wrap
+end, { desc = "Toggle wrap" })
 
 Keymap("n", "<leader>d", "<cmd>lua vim.diagnostic.open_float()<CR>", { desc = "Diagnostic float" })
 Keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", { desc = "Go to definition" })
@@ -81,14 +86,6 @@ local builtin = require("telescope.builtin")
 Keymap("n", "<leader>ff", function()
 	builtin.find_files({ hidden = true })
 end, { desc = "Find files" })
-
-Keymap("n", "<leader>fn", function()
-	local full_path = vim.api.nvim_buf_get_name(0)
-	local dir = vim.fn.fnamemodify(full_path, ":h")
-	require("telescope").extensions.file_browser.file_browser({
-		path = dir,
-	})
-end, { desc = "File browser" })
 
 Keymap("n", "<leader>fs", function() -- select sessions
 	MiniSessions.select()

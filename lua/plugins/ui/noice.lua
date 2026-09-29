@@ -5,7 +5,7 @@ vim.pack.add({
 })
 
 require("notify").setup({
-	background_colour = "#000000",
+	background_colour = require("dune").BG,
 	render = "compact",
 	stages = "slide",
 })
