@@ -1,6 +1,3 @@
--- ty: Python type checker + language server (Astral)
-return {
-  cmd = { "ty", "server" },
-  filetypes = { "python" },
-  root_markers = { "ty.toml", "pyproject.toml", "setup.py", "requirements.txt", ".git" },
-}
+-- ty: Python type checker / language server. nvim-lspconfig defaults are sufficient;
+-- add `settings = { ty = {...} }` here to customise.
+return {}
