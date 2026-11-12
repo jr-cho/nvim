@@ -290,7 +290,7 @@ Shows LSP hover and signature help for the cursor position of the last editor wi
 
 ### Dashboard (shown with plain `nvim`)
 
-`f` find file, `n` new file, `g` find text, `r` recent, `p` projects, `c` config, `L` Lazy, `M` Mason, `q` quit.
+Logo plus `f` find file, `n` new file, `g` find text, `q` quit. Recent files, projects and config are still one key away: `<leader>fr`, `<leader>fp`, `<leader>fc`.
 
 ### Completion (insert mode, blink.cmp "enter" preset)
 

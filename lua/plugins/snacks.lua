@@ -1,11 +1,11 @@
 -- Snacks.nvim: dashboard, explorer (persistent sidebar, see ide/layout.lua), pickers, UI helpers.
 local header = [[
-███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗
-████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║
-██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║
-██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║
-██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║
-╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝]]
+     ██╗███████╗██████╗ ██╗ ██████╗██╗  ██╗ ██████╗
+     ██║██╔════╝██╔══██╗██║██╔════╝██║  ██║██╔═══██╗
+     ██║█████╗  ██████╔╝██║██║     ███████║██║   ██║
+██   ██║██╔══╝  ██╔══██╗██║██║     ██╔══██║██║   ██║
+╚█████╔╝███████╗██║  ██║██║╚██████╗██║  ██║╚██████╔╝
+ ╚════╝ ╚══════╝╚═╝  ╚═╝╚═╝ ╚═════╝╚═╝  ╚═╝ ╚═════╝]]
 
 local I = require("ide.icons")
 
@@ -26,20 +26,12 @@ return {
             { icon = I.misc.file .. " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
             { icon = I.misc.new_file .. " ", key = "n", desc = "New File", action = ":ene | startinsert" },
             { icon = I.misc.text .. " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
-            { icon = I.misc.recent .. " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-            { icon = I.misc.project .. " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
-            { icon = I.misc.config .. " ", key = "c", desc = "Config", action = ":lua Snacks.picker.files({ cwd = vim.fn.stdpath('config') })" },
-            { icon = I.misc.lazy .. " ", key = "L", desc = "Lazy", action = ":Lazy" },
-            { icon = I.misc.mason .. " ", key = "M", desc = "Mason", action = ":Mason" },
             { icon = I.misc.quit .. " ", key = "q", desc = "Quit", action = ":qa" },
           },
         },
         sections = {
           { section = "header" },
           { section = "keys", gap = 1, padding = 1 },
-          { icon = I.misc.recent .. " ", title = "Recent Files", section = "recent_files", cwd = true, limit = 5, indent = 2, padding = 1 },
-          { icon = I.misc.project .. " ", title = "Projects", section = "projects", limit = 5, indent = 2, padding = 1 },
-          { section = "startup" },
         },
       },
       explorer = { enabled = true, replace_netrw = true },
