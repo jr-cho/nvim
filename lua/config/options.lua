@@ -1,4 +1,4 @@
--- Editor options. Completion options are left to blink.cmp.
+-- Editor options, native completion and statusline.
 local o = vim.opt
 
 o.number = true
@@ -7,13 +7,9 @@ o.cursorline = true
 o.cursorlineopt = "number"
 o.signcolumn = "yes"
 o.laststatus = 3
-o.fillchars = {
-  eob = " ",
-  foldopen = "\u{f078}",
-  foldclose = "\u{f054}",
-  fold = " ",
-  foldsep = " ",
-}
+o.fillchars = { eob = " ", fold = " ", foldsep = " " }
+o.showtabline = 0
+o.autoread = true
 
 o.expandtab = true
 o.shiftwidth = 4
@@ -44,4 +40,11 @@ o.foldlevel = 99
 o.foldlevelstart = 99
 o.foldmethod = "expr"
 o.foldexpr = "v:lua.vim.treesitter.foldexpr()"
-o.foldcolumn = "1"
+
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 0
+
+o.completeopt = "menuone,noselect,popup,fuzzy"
+o.autocomplete = true
+o.complete = ".,o"
+o.statusline = " %f %m%r%=%{%v:lua.vim.diagnostic.status()%}  %y  %l:%c "

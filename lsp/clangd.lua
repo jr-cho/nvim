@@ -1,5 +1,3 @@
--- clangd overrides (cmd/filetypes/root_markers come from nvim-lspconfig).
--- Needs compile_commands.json (or compile_flags.txt) in the project root.
 return {
   cmd = {
     "clangd",
@@ -9,5 +7,15 @@ return {
     "--completion-style=detailed",
     "--function-arg-placeholders",
     "--fallback-style=llvm",
+  },
+  filetypes = { "c", "cpp", "objc", "objcpp", "cuda" },
+  root_markers = {
+    ".clangd",
+    ".clang-tidy",
+    ".clang-format",
+    "compile_commands.json",
+    "compile_flags.txt",
+    "configure.ac",
+    ".git",
   },
 }
